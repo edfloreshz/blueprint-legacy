@@ -1,2 +1,5 @@
-# devx
-Devx is an out of the box developer environment configurator.
+<div align="center">
+  <h1>Devx</h1>
+  <h3>An out of the box developer environment configurator</h3>
+</div>
+
