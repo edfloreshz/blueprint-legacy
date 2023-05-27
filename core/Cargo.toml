@@ -3,6 +3,25 @@ name = "devx_core"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[[example]]
+name = "usage"
+path = "examples/usage.rs"
 
 [dependencies]
+anyhow = "1.0.71"
+derive_setters = "0.1.6"
+ron = "0.8.0"
+shuttle-persist = "0.17.0"
+
+[dependencies.url]
+version = "2.3.1"
+features = ["serde"]
+
+[dependencies.serde]
+version = "1.0.163"
+features = ["derive"]
+
+[dev-dependencies]
+anyhow = "1.0.71"
+dirs = "5.0.1"
+
