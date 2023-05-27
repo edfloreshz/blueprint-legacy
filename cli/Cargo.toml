@@ -1,0 +1,15 @@
+[package]
+name = "devx_cli"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+devx_core = { path = "../core" }
+
+[dependencies.clap]
+version = "4.3.0"
+features = ["derive"]
+
+[[bin]]
+name = "devx"
+path = "src/main.rs"

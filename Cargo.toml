@@ -1,0 +1,38 @@
+[package]
+name = "devx"
+version = "0.1.0"
+authors = ["Eduardo Flores <edfloreshz@proton.me>"]
+edition = "2021"
+publish = false
+
+[workspace]
+members = [
+    "cli",
+    "core"
+]
+
+[dependencies]
+gettext-rs = { version = "0.7", features = ["gettext-system"] }
+tracing = "0.1"
+tracing-subscriber = "0.3"
+anyhow = "1.0.71"
+shuttle-persist = "0.17.0"
+devx_core ={ path = "core" }
+
+[dependencies.relm4]
+version = "0.6.0-beta.1"
+features = ["libadwaita", "gnome_43"]
+
+[dependencies.relm4-icons]
+version = "0.6.0-beta.7"
+features = [
+    "panel-right-contract-filled",
+    "code-block-filled",
+    "chat-filled",
+    "bookmark-multiple-filled",
+    "slide-text-filled",
+    "settings-filled",
+]
+
+[build-dependencies]
+glib-build-tools = "0.17.0"
