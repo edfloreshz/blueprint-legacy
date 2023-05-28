@@ -1,0 +1,11 @@
+@media (prefers-color-scheme: dark) {
+    #screenshot {
+        content: url("https://raw.githubusercontent.com/edfloreshz/blueprint/main/data/resources/screenshots/dark.png");
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    #screenshot {
+        content: url("https://raw.githubusercontent.com/edfloreshz/blueprint/main/data/resources/screenshots/light.png");
+    }
+}
