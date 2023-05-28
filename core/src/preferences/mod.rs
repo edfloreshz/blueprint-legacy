@@ -1,23 +1,51 @@
 pub mod code_editor;
 pub mod language;
 pub mod library;
+pub mod source;
+
 use anyhow::Result;
-use derive_setters::*;
+use derive_setters::Setters;
+use getset::{CopyGetters, Getters, MutGetters};
 use serde::{Deserialize, Serialize};
 
 use self::{code_editor::CodeEditor, language::Language, library::Library, shell::Shell};
 
 pub mod shell;
 
-#[derive(Debug, Default, Setters, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(
+    Debug,
+    Default,
+    Getters,
+    Setters,
+    MutGetters,
+    CopyGetters,
+    Serialize,
+    Deserialize,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Clone,
+)]
+#[setters(prefix = "set_")]
 pub struct Preferences {
-    #[setters(into)]
+    #[setters(into, borrow_self)]
+    #[getset(get = "pub", get_mut = "pub")]
     author: String,
-    #[setters(into)]
+    #[setters(into, borrow_self)]
+    #[getset(get = "pub", get_mut = "pub")]
     location: String,
+    #[setters(into, borrow_self)]
+    #[getset(get = "pub", get_mut = "pub")]
     shells: Vec<Shell>,
+    #[setters(into, borrow_self)]
+    #[getset(get = "pub", get_mut = "pub")]
     languages: Vec<Language>,
+    #[setters(into, borrow_self)]
+    #[getset(get = "pub", get_mut = "pub")]
     libraries: Vec<Library>,
+    #[setters(into, borrow_self)]
+    #[getset(get = "pub", get_mut = "pub")]
     code_editors: Vec<CodeEditor>,
 }
 
@@ -32,9 +60,14 @@ impl Preferences {
         Ok(())
     }
 
-    pub fn load(path: &str) -> Result<Self> {
-        let file = std::fs::read_to_string(path)?;
+    pub fn load(path: impl ToString) -> Result<Self> {
+        let file = std::fs::read_to_string(path.to_string())?;
         let preferences = ron::from_str::<Preferences>(&file)?;
         Ok(preferences)
+    }
+
+    pub fn update_shell(&mut self, index: usize, shell: Shell) -> Result<()> {
+        self.shells[index] = shell;
+        self.save()
     }
 }

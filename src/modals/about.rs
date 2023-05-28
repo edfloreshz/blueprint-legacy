@@ -20,7 +20,7 @@ impl SimpleComponent for AboutDialog {
             .license_type(gtk::License::Mpl20)
             .website("https://github.com/edfloreshz/devx/")
             .version(VERSION)
-            .translator_credits(&gettext("translator-credits"))
+            .translator_credits(gettext("translator-credits"))
             .modal(true)
             .authors(vec!["Eduardo Flores"])
             .artists(vec!["Eduardo Flores"])

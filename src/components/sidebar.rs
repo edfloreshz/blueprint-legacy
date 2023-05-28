@@ -1,6 +1,7 @@
 use relm4::{
     gtk::{
         self,
+        prelude::ButtonExt,
         traits::{BoxExt, ListBoxRowExt, OrientableExt, WidgetExt},
     },
     ComponentParts, ComponentSender, RelmWidgetExt, SimpleComponent,
@@ -14,11 +15,13 @@ pub struct SidebarModel {}
 #[derive(Debug)]
 pub enum SidebarInput {
     SelectPage(Page),
+    OpenPreferences,
 }
 
 #[derive(Debug)]
 pub enum SidebarOutput {
     SelectPage(Page),
+    OpenPreferences,
 }
 
 #[relm4::component(pub)]
@@ -30,15 +33,14 @@ impl SimpleComponent for SidebarModel {
     view! {
         #[root]
         &gtk::Box {
-            set_css_classes: &["background"],
+            set_css_classes: &["view"],
             set_orientation: gtk::Orientation::Vertical,
-            set_vexpand: true,
-            set_margin_all: 5,
             #[name(scroll_window)]
             gtk::ScrolledWindow {
                 set_policy: (gtk::PolicyType::Never, gtk::PolicyType::Automatic),
                 set_vexpand: true,
                 gtk::ListBox {
+                    set_margin_all: 5,
                     set_css_classes: &["navigation-sidebar"],
                     connect_row_selected => move |_, listbox_row| {
                         if let Some(row) = listbox_row {
@@ -107,6 +109,29 @@ impl SimpleComponent for SidebarModel {
                     }
                 }
             },
+            gtk::Box {
+                set_css_classes: &["navigation-sidebar"],
+                set_margin_all: 5,
+                set_margin_end: 10,
+                set_margin_start: 10,
+                set_hexpand: false,
+                gtk::Button {
+                    set_tooltip: "Preferences",
+                    set_css_classes: &["flat"],
+                    gtk::Box {
+                        set_orientation: gtk::Orientation::Horizontal,
+                        set_spacing: 5,
+                        gtk::Image {
+                            set_icon_name: Some(Page::Preferences.icon())
+                        },
+                        append = &gtk::Label {
+                            set_hexpand: true,
+                            set_text: "Preferences",
+                        },
+                    },
+                    connect_clicked => SidebarInput::OpenPreferences
+                },
+            }
         }
     }
 
@@ -120,11 +145,12 @@ impl SimpleComponent for SidebarModel {
         ComponentParts { model, widgets }
     }
 
-    fn update(&mut self, message: Self::Input, _sender: ComponentSender<Self>) {
+    fn update(&mut self, message: Self::Input, sender: ComponentSender<Self>) {
         match message {
             SidebarInput::SelectPage(page) => {
-                _sender.output(SidebarOutput::SelectPage(page)).unwrap();
+                sender.output(SidebarOutput::SelectPage(page)).unwrap();
             }
+            SidebarInput::OpenPreferences => sender.output(SidebarOutput::OpenPreferences).unwrap(),
         }
     }
 }

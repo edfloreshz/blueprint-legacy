@@ -9,6 +9,7 @@ path = "examples/usage.rs"
 
 [dependencies]
 anyhow = "1.0.71"
+getset = "0.1.2"
 derive_setters = "0.1.6"
 ron = "0.8.0"
 shuttle-persist = "0.17.0"

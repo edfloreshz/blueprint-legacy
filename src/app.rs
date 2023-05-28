@@ -12,7 +12,7 @@ use gtk::prelude::{ApplicationExt, ApplicationWindowExt, GtkWindowExt, WidgetExt
 use relm4_icons::icon_name;
 
 use crate::{
-    components::{content::ContentInput, sidebar::SidebarModel},
+    components::{content::ContentInput, preferences::PreferencesModel, sidebar::SidebarModel},
     config::PROFILE,
 };
 use crate::{
@@ -25,12 +25,14 @@ pub(super) struct App {
     about_dialog: Controller<AboutDialog>,
     sidebar: Controller<SidebarModel>,
     content: Controller<ContentModel>,
+    preferences: Controller<PreferencesModel>,
     reveal_sidebar: bool,
 }
 
 #[derive(Debug)]
 pub(super) enum AppMsg {
     SelectPage(Page),
+    OpenPreferences,
     RevealSidebar,
     Quit,
 }
@@ -94,14 +96,14 @@ impl Component for App {
                 },
                 #[name(flap)]
                 adw::Flap {
+                    #[watch]
+                    set_reveal_flap: model.reveal_sidebar,
                     set_flap: Some(model.sidebar.widget()),
                     set_separator: Some(&gtk::Separator::default()),
                     set_content: Some(model.content.widget()),
                     set_swipe_to_close: true,
                     set_swipe_to_open: true,
                     set_modal: true,
-                    #[watch]
-                    set_reveal_flap: model.reveal_sidebar,
                 }
             }
         }
@@ -122,12 +124,15 @@ impl Component for App {
                 .launch(())
                 .forward(sender.input_sender(), |message| match message {
                     SidebarOutput::SelectPage(page) => AppMsg::SelectPage(page),
+                    SidebarOutput::OpenPreferences => AppMsg::OpenPreferences,
                 });
         let content = ContentModel::builder().launch(Page::Shells).detach();
+        let preferences = PreferencesModel::builder().launch(()).detach();
         let model = Self {
             about_dialog,
             sidebar,
             content,
+            preferences,
             reveal_sidebar: true,
         };
 
@@ -173,6 +178,10 @@ impl Component for App {
                 .sender()
                 .send(ContentInput::SelectPage(page))
                 .unwrap(),
+            AppMsg::OpenPreferences => {
+                let preferences = self.preferences.widget();
+                preferences.present();
+            }
             AppMsg::Quit => main_application().quit(),
         }
         self.update_view(widgets, sender)

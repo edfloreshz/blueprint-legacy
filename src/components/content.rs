@@ -1,16 +1,19 @@
+use devx_core::preferences::Preferences;
 use relm4::{
-    adw,
     gtk::{
         self,
-        traits::{OrientableExt, WidgetExt},
+        traits::{BoxExt, OrientableExt, WidgetExt},
     },
-    ComponentParts, ComponentSender, RelmWidgetExt, SimpleComponent,
+    Component, ComponentController, ComponentParts, ComponentSender, Controller, SimpleComponent,
 };
 
-use crate::models::page::Page;
+use crate::{components::pages::shells::ShellsInit, models::page::Page, setup::preferences_path};
+
+use super::pages::shells::{ShellsInput, ShellsModel};
 
 pub struct ContentModel {
     page: Page,
+    shells: Controller<ShellsModel>,
 }
 
 #[derive(Debug)]
@@ -29,24 +32,10 @@ impl SimpleComponent for ContentModel {
 
     view! {
         #[root]
-        adw::ClampScrollable {
-            gtk::Box {
-                set_orientation: gtk::Orientation::Vertical,
-                set_halign: gtk::Align::Center,
-                set_hexpand: true,
-                set_margin_all: 20,
-                gtk::Image {
-                    #[watch]
-                    set_icon_name: Some(model.page.icon()),
-                    set_icon_size: gtk::IconSize::Large,
-                },
-                gtk::Label {
-                    #[watch]
-                    set_label: model.page.name(),
-                    add_css_class: "title-header",
-                    set_halign: gtk::Align::Center
-                }
-            }
+        gtk::Box {
+            set_orientation: gtk::Orientation::Vertical,
+            set_hexpand: true,
+            append: model.shells.widget()
         }
     }
 
@@ -55,14 +44,25 @@ impl SimpleComponent for ContentModel {
         root: &Self::Root,
         _sender: ComponentSender<Self>,
     ) -> ComponentParts<Self> {
-        let model = ContentModel { page };
+        let preferences =
+            Preferences::load(preferences_path().display().to_string()).unwrap_or_default();
+        let shells = ShellsModel::builder()
+            .launch(ShellsInit::new(page, preferences.shells().clone()))
+            .detach();
+        let model = ContentModel { page, shells };
         let widgets = view_output!();
         ComponentParts { model, widgets }
     }
 
     fn update(&mut self, message: Self::Input, _sender: ComponentSender<Self>) {
         match message {
-            ContentInput::SelectPage(page) => self.page = page,
+            ContentInput::SelectPage(page) => {
+                self.page = page;
+                self.shells
+                    .sender()
+                    .send(ShellsInput::SelectPage(page))
+                    .unwrap();
+            }
         }
     }
 }
