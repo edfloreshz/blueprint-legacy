@@ -38,7 +38,7 @@ pub struct Preferences {
     #[setters(into, borrow_self)]
     #[getset(get = "pub", get_mut = "pub")]
     shells: Vec<Shell>,
-    #[setters(into, borrow_self)]
+    #[setters(borrow_self)]
     #[getset(get = "pub", get_mut = "pub")]
     languages: Vec<Language>,
     #[setters(into, borrow_self)]
@@ -68,6 +68,21 @@ impl Preferences {
 
     pub fn update_shell(&mut self, index: usize, shell: Shell) -> Result<()> {
         self.shells[index] = shell;
+        self.save()
+    }
+
+    pub fn update_language(&mut self, index: usize, language: Language) -> Result<()> {
+        self.languages[index] = language;
+        self.save()
+    }
+
+    pub fn update_library(&mut self, index: usize, library: Library) -> Result<()> {
+        self.libraries[index] = library;
+        self.save()
+    }
+
+    pub fn update_code_editor(&mut self, index: usize, code_editor: CodeEditor) -> Result<()> {
+        self.code_editors[index] = code_editor;
         self.save()
     }
 }
