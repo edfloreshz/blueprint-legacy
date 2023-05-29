@@ -1,12 +1,12 @@
 [Desktop Entry]
 Name=Blueprint
-Comment=Write a GTK + Rust application
+Comment=An out of the box developer environment designer
 Type=Application
 Exec=blueprint
 Terminal=false
 Categories=GNOME;GTK;
 # Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-Keywords=Gnome;GTK;
+Keywords=Gnome;GTK;Dev;Developer;Config;Configuration;Environment;Env;
 # Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 Icon=@icon@
 StartupNotify=true

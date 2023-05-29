@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Eduardo Flores 2023 <edfloreshz@proton.me> -->
+<component type="desktop-application">
+  <id>@app-id@</id>
+  <metadata_license>CC0</metadata_license>
+  <!-- Insert your license of choice here -->
+  <project_license>MPL-2.0</project_license>
+  <name>Blueprint</name>
+  <summary>An out of the box developer environment designer</summary>
+  <description>
+    <p>Design and apply your developer environment when starting to work on a new system.</p>
+  </description>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://gitlab.gnome.org/bilelmoussaoui/blueprint/raw/master/data/resources/screenshots/light.png</image>
+      <caption>Main window light</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://gitlab.gnome.org/bilelmoussaoui/blueprint/raw/master/data/resources/screenshots/dark.png</image>
+      <caption>Main window dark</caption>
+    </screenshot>
+  </screenshots>
+  <url type="homepage">https://github.com/edfloreshz/blueprint</url>
+  <url type="bugtracker">https://github.com/edfloreshz/blueprint/issues</url>
+  <url type="donation">https://github.com/sponsors/edfloreshz</url>
+  <content_rating type="oars-1.0" />
+  <releases>
+    <release version="0.1.0" date="2019-07-11">
+      <description>
+        <p>Initial release</p>
+        <ul>
+          <li>Create and configure your developer environment.</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+  <kudos>
+     <!--
+       GNOME Software kudos:
+       https://gitlab.gnome.org/GNOME/gnome-software/-/blob/main/doc/kudos.md
+     -->
+     <kudo>ModernToolkit</kudo>
+     <kudo>HiDpiIcon</kudo>
+  </kudos>
+  <developer_name>Eduardo Flores</developer_name>
+  <update_contact>edfloreshz@proton.me</update_contact>
+  <translation type="gettext">@gettext-package@</translation>
+  <launchable type="desktop-id">@app-id@.desktop</launchable>
+</component>
