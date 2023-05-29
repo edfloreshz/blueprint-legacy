@@ -31,10 +31,7 @@ The Blueprint project focuses on improving the initial experience developers hav
 
 ## Installation and Usage
 
-To benefit from the Blueprint project and improve your out-of-the-box experience, download the app from Flathub.
-<div align="center">
-    <a href="https://flathub.org/apps/details/dev.edfloreshz.Blueprint"><img src="https://flathub.org/assets/badges/flathub-badge-en.png" width="150"/></a>
-</div>
+Instalation sources will be added in the future, in the meantime, you can build the project with [GNOME Builder](https://wiki.gnome.org/Apps/Builder).
 
 ## License
 
