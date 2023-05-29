@@ -2,10 +2,23 @@
   <img src="https://raw.githubusercontent.com/edfloreshz/blueprint/main/data/icons/dev.edfloreshz.Blueprint.svg">
   <h1>Blueprint</h1>
   <h4>An out of the box developer environment designer</h4>
+ 
+  <a href="https://github.com/sponsors/edfloreshz">
+    <img src="https://img.shields.io/badge/sponsor-30363D?style=for-the-badge&logo=GitHub-Sponsors&logoColor=#white"/>
+  </a>
+  <a href="https://matrix.to/#/#blueprint-chat:matrix.org">
+    <img src="https://img.shields.io/badge/matrix-000000?style=for-the-badge&logo=Matrix&logoColor=white"/>
+  </a>
+  <a href="https://github.com/edfloreshz/blueprint">
+    <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"/>
+  </a>
+  <a href="https://t.me/edfloreshz">
+    <img src="https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white"/>
+  </a>
 </div>
 
 ![Screenshot](./data/resources/screenshots/light.png#gh-light-mode-only)
-  ![Screenshot](./data/resources/screenshots/dark.png#gh-dark-mode-only)
+![Screenshot](./data/resources/screenshots/dark.png#gh-dark-mode-only)
 
 ## Description
 
