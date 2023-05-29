@@ -7,7 +7,7 @@ use dirs::data_dir;
 fn main() -> Result<()> {
     // Create a preferences file.
     let dir = data_dir().unwrap().join("devx");
-    let mut preferences = Preferences::new()
+    let mut preferences = Preferences::default()
         .set_author("Eduardo Flores")
         .set_location(dir.display().to_string())
         .set_shells(vec![Shell::default().set_name("fish").clone()])

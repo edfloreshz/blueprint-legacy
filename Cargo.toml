@@ -21,7 +21,8 @@ dirs = "5.0.1"
 derive-new = "0.5.9"
 
 [dependencies.relm4]
-path = "/home/eduardo/Developer/GitHub/edfloreshz/relm4/relm4"
+git = "https://github.com/Relm4/Relm4"
+branch = "main"
 features = ["libadwaita", "gnome_43"]
 
 [dependencies.relm4-icons]
@@ -35,7 +36,10 @@ features = [
     "settings-filled",
     "more-horizontal-filled",
     "toggle-multiple-filled",
-    "dark-mode"
+    "dark-mode",
+    "checkbox-checked-filled",
+    "checkmark-circle-filled",
+    "warning"
 ]
 
 [build-dependencies]

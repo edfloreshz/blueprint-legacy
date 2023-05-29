@@ -1,11 +1,14 @@
+use devx_core::preferences::Preferences;
 use relm4::{
     actions::{ActionGroupName, RelmAction, RelmActionGroup},
     adw,
+    component::{AsyncComponent, AsyncComponentParts},
     gtk::{
         self,
         traits::{ButtonExt, OrientableExt},
     },
-    main_application, Component, ComponentController, ComponentParts, ComponentSender, Controller,
+    main_application, AsyncComponentSender, Component, ComponentController, Controller,
+    RelmWidgetExt,
 };
 
 use gtk::prelude::{ApplicationExt, ApplicationWindowExt, GtkWindowExt, WidgetExt};
@@ -14,6 +17,11 @@ use relm4_icons::icon_name;
 use crate::{
     components::{content::ContentInput, preferences::PreferencesModel, sidebar::SidebarModel},
     config::PROFILE,
+    modals::{
+        password::{PasswordModel, PasswordOutput},
+        summary::{SummaryInput, SummaryModel},
+    },
+    setup::preferences_path,
 };
 use crate::{
     components::{content::ContentModel, sidebar::SidebarOutput},
@@ -26,7 +34,10 @@ pub(super) struct App {
     sidebar: Controller<SidebarModel>,
     content: Controller<ContentModel>,
     preferences: Controller<PreferencesModel>,
+    password_modal: Controller<PasswordModel>,
+    summary_modal: Controller<SummaryModel>,
     reveal_sidebar: bool,
+    show_spinner: bool,
 }
 
 #[derive(Debug)]
@@ -34,6 +45,9 @@ pub(super) enum AppMsg {
     SelectPage(Page),
     OpenPreferences,
     RevealSidebar,
+    PromptPassword,
+    ShowSpinner(String),
+    ApplyChanges(String),
     Quit,
 }
 
@@ -42,8 +56,8 @@ relm4::new_stateless_action!(PreferencesAction, WindowActionGroup, "preferences"
 relm4::new_stateless_action!(pub(super) ShortcutsAction, WindowActionGroup, "show-help-overlay");
 relm4::new_stateless_action!(AboutAction, WindowActionGroup, "about");
 
-#[relm4::component(pub)]
-impl Component for App {
+#[relm4::component(pub async)]
+impl AsyncComponent for App {
     type Init = ();
     type Input = AppMsg;
     type Output = ();
@@ -93,6 +107,17 @@ impl Component for App {
                         set_icon_name: icon_name::PANEL_RIGHT_CONTRACT_FILLED,
                         connect_clicked => AppMsg::RevealSidebar,
                     },
+                    pack_start = &gtk::Button {
+                        set_css_classes: &["flat"],
+                        set_tooltip: "Apply changes to the system",
+                        set_icon_name: icon_name::CHECKBOX_CHECKED_FILLED,
+                        connect_clicked => AppMsg::PromptPassword,
+                    },
+                    pack_end = &gtk::Spinner {
+                        #[watch]
+                        set_visible: model.show_spinner,
+                        start: (),
+                    },
                 },
                 #[name(flap)]
                 adw::Flap {
@@ -109,13 +134,13 @@ impl Component for App {
         }
     }
 
-    fn init(
+    async fn init(
         _init: Self::Init,
-        root: &Self::Root,
-        sender: ComponentSender<Self>,
-    ) -> ComponentParts<Self> {
+        root: Self::Root,
+        sender: AsyncComponentSender<Self>,
+    ) -> AsyncComponentParts<Self> {
         let about_dialog = AboutDialog::builder()
-            .transient_for(root)
+            .transient_for(root.clone())
             .launch(())
             .detach();
 
@@ -128,12 +153,22 @@ impl Component for App {
                 });
         let content = ContentModel::builder().launch(Page::Shells).detach();
         let preferences = PreferencesModel::builder().launch(()).detach();
+        let password_modal =
+            PasswordModel::builder()
+                .launch(())
+                .forward(sender.input_sender(), |message| match message {
+                    PasswordOutput::Password(password) => AppMsg::ShowSpinner(password),
+                });
+        let summary_modal = SummaryModel::builder().launch(()).detach();
         let model = Self {
             about_dialog,
             sidebar,
             content,
             preferences,
+            password_modal,
+            summary_modal,
             reveal_sidebar: true,
+            show_spinner: false,
         };
 
         let widgets = view_output!();
@@ -161,14 +196,14 @@ impl Component for App {
             .main_window
             .insert_action_group(WindowActionGroup::NAME, Some(&actions.into_action_group()));
 
-        ComponentParts { model, widgets }
+        AsyncComponentParts { model, widgets }
     }
 
-    fn update_with_view(
+    async fn update_with_view(
         &mut self,
         widgets: &mut Self::Widgets,
         message: Self::Input,
-        sender: ComponentSender<Self>,
+        sender: AsyncComponentSender<Self>,
         _root: &Self::Root,
     ) {
         match message {
@@ -181,6 +216,30 @@ impl Component for App {
             AppMsg::OpenPreferences => {
                 let preferences = self.preferences.widget();
                 preferences.present();
+            }
+            AppMsg::PromptPassword => self.password_modal.widget().present(),
+            AppMsg::ShowSpinner(password) => {
+                self.show_spinner = true;
+                sender.input(AppMsg::ApplyChanges(password))
+            }
+            AppMsg::ApplyChanges(password) => {
+                let preferences = Preferences::load(preferences_path().display().to_string())
+                    .expect("Preferences are not correctly set");
+
+                let (tx, mut rx) = relm4::tokio::sync::mpsc::channel(32);
+                relm4::tokio::spawn(async move {
+                    match preferences.apply(&password).await {
+                        Ok(package) => tx.send(package.install_summary().clone()).await.unwrap(),
+                        Err(err) => println!("An error ocurred: {}", err),
+                    }
+                });
+                if let Some(messages) = rx.recv().await {
+                    self.show_spinner = false;
+                    self.summary_modal
+                        .sender()
+                        .send(SummaryInput::Open(messages))
+                        .unwrap();
+                }
             }
             AppMsg::Quit => main_application().quit(),
         }

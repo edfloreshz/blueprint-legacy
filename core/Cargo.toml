@@ -13,6 +13,7 @@ getset = "0.1.2"
 derive_setters = "0.1.6"
 ron = "0.8.0"
 shuttle-persist = "0.17.0"
+runas = "1.1.0"
 
 [dependencies.url]
 version = "2.3.1"
@@ -21,6 +22,23 @@ features = ["serde"]
 [dependencies.serde]
 version = "1.0.163"
 features = ["derive"]
+
+[dependencies.relm4-icons]
+version = "0.6.0-beta.7"
+features = [
+    "panel-right-contract-filled",
+    "code-block-filled",
+    "chat-filled",
+    "bookmark-multiple-filled",
+    "slide-text-filled",
+    "settings-filled",
+    "more-horizontal-filled",
+    "toggle-multiple-filled",
+    "dark-mode",
+    "checkbox-checked-filled",
+    "checkmark-circle-filled",
+    "warning"
+]
 
 [dev-dependencies]
 anyhow = "1.0.71"
