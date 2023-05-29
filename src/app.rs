@@ -108,16 +108,16 @@ impl AsyncComponent for App {
                         set_icon_name: icon_name::PANEL_RIGHT_CONTRACT_FILLED,
                         connect_clicked => AppMsg::RevealSidebar,
                     },
-                    pack_start = &gtk::Button {
-                        set_css_classes: &["flat"],
-                        set_tooltip: "Apply changes to the system",
-                        set_icon_name: icon_name::CHECKBOX_CHECKED_FILLED,
-                        connect_clicked => AppMsg::PromptPassword,
-                    },
                     pack_end = &gtk::Spinner {
                         #[watch]
                         set_visible: model.show_spinner,
                         start: (),
+                    },
+                    pack_end = &gtk::Button {
+                        set_css_classes: &["flat"],
+                        set_tooltip: "Apply changes to the system",
+                        set_icon_name: icon_name::CHECKBOX_CHECKED_FILLED,
+                        connect_clicked => AppMsg::PromptPassword,
                     },
                 },
                 #[name(flap)]
