@@ -1,6 +1,6 @@
-data/dev.edfloreshz.Devx.desktop.in.in
-data/dev.edfloreshz.Devx.gschema.xml.in
-data/dev.edfloreshz.Devx.metainfo.xml.in.in
+data/dev.edfloreshz.Blueprint.desktop.in.in
+data/dev.edfloreshz.Blueprint.gschema.xml.in
+data/dev.edfloreshz.Blueprint.metainfo.xml.in.in
 data/resources/ui/shortcuts.ui
 data/resources/ui/window.ui
 src/application.rs

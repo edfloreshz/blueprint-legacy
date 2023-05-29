@@ -1,4 +1,4 @@
-use devx_core::preferences::Preferences;
+use blueprint_core::preferences::Preferences;
 use relm4::{
     gtk::{
         self,

@@ -1,4 +1,4 @@
-use devx_core::preferences::Preferences;
+use blueprint_core::preferences::Preferences;
 use relm4::{
     actions::{ActionGroupName, RelmAction, RelmActionGroup},
     adw,
@@ -69,7 +69,7 @@ impl AsyncComponent for App {
             section! {
                 "_Preferences" => PreferencesAction,
                 "_Keyboard" => ShortcutsAction,
-                "_About Devx" => AboutAction,
+                "_About Blueprint" => AboutAction,
             }
         }
     }
@@ -83,7 +83,7 @@ impl AsyncComponent for App {
 
             #[wrap(Some)]
             set_help_overlay: shortcuts = &gtk::Builder::from_resource(
-                    "/dev/edfloreshz/Devx/gtk/help-overlay.ui"
+                    "/dev/edfloreshz/Blueprint/gtk/help-overlay.ui"
                 )
                 .object::<gtk::ShortcutsWindow>("help_overlay")
                 .unwrap() -> gtk::ShortcutsWindow {

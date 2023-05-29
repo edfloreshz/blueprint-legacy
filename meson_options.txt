@@ -6,5 +6,5 @@ option(
     'development'
   ],
   value: 'default',
-  description: 'The build profile for Devx. One of "default" or "development".'
+  description: 'The build profile for Blueprint. One of "default" or "development".'
 )

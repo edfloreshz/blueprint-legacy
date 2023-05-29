@@ -1,5 +1,5 @@
 {
-    "id": "dev.edfloreshz.Devx.Devel",
+    "id": "dev.edfloreshz.Blueprint.Devel",
     "runtime": "org.gnome.Platform",
     "runtime-version": "43",
     "sdk": "org.gnome.Sdk",
@@ -7,13 +7,13 @@
         "org.freedesktop.Sdk.Extension.rust-stable",
         "org.freedesktop.Sdk.Extension.llvm15"
     ],
-    "command": "devx",
+    "command": "blueprint",
     "finish-args": [
         "--share=ipc",
         "--socket=fallback-x11",
         "--socket=wayland",
         "--device=dri",
-        "--env=RUST_LOG=devx=debug",
+        "--env=RUST_LOG=blueprint=debug",
         "--env=G_MESSAGES_DEBUG=none",
         "--env=RUST_BACKTRACE=1"
     ],
@@ -37,7 +37,7 @@
     },
     "modules": [
         {
-            "name": "devx",
+            "name": "blueprint",
             "buildsystem": "meson",
             "run-tests": true,
             "config-opts": [

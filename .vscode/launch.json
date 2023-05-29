@@ -7,15 +7,15 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug executable 'devx'",
+            "name": "Debug executable 'blueprint'",
             "cargo": {
                 "args": [
                     "build",
-                    "--bin=devx",
-                    "--package=devx"
+                    "--bin=blueprint",
+                    "--package=blueprint"
                 ],
                 "filter": {
-                    "name": "devx",
+                    "name": "blueprint",
                     "kind": "bin"
                 }
             },
@@ -25,16 +25,16 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in executable 'devx'",
+            "name": "Debug unit tests in executable 'blueprint'",
             "cargo": {
                 "args": [
                     "test",
                     "--no-run",
-                    "--bin=devx",
-                    "--package=devx"
+                    "--bin=blueprint",
+                    "--package=blueprint"
                 ],
                 "filter": {
-                    "name": "devx",
+                    "name": "blueprint",
                     "kind": "bin"
                 }
             },

@@ -1,4 +1,4 @@
-use devx_core::preferences::{shell::Shell, source::Source, Preferences};
+use blueprint_core::preferences::{shell::Shell, source::Source, Preferences};
 use relm4::{
     adw::{
         self,

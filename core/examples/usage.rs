@@ -1,12 +1,12 @@
 use anyhow::Result;
-use devx_core::preferences::{
+use blueprint_core::preferences::{
     code_editor::CodeEditor, language::Language, library::Library, shell::Shell, Preferences,
 };
 use dirs::data_dir;
 
 fn main() -> Result<()> {
     // Create a preferences file.
-    let dir = data_dir().unwrap().join("devx");
+    let dir = data_dir().unwrap().join("blueprint");
     let mut preferences = Preferences::default()
         .set_author("Eduardo Flores")
         .set_location(dir.display().to_string())

@@ -1,4 +1,4 @@
-use devx_core::preferences::language::Language;
+use blueprint_core::preferences::language::Language;
 use relm4::{
     adw::{
         self,

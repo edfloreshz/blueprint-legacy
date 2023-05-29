@@ -1,4 +1,4 @@
-use devx_core::preferences::library::Library;
+use blueprint_core::preferences::library::Library;
 use relm4::{
     adw::{
         self,

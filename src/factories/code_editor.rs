@@ -1,4 +1,4 @@
-use devx_core::preferences::{code_editor::CodeEditor, source::Source, Preferences};
+use blueprint_core::preferences::{code_editor::CodeEditor, source::Source, Preferences};
 use relm4::{
     adw::{
         self,

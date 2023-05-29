@@ -1,6 +1,6 @@
 use std::path::PathBuf;
 
-use devx_core::preferences::Preferences;
+use blueprint_core::preferences::Preferences;
 use dirs::data_dir;
 use relm4::{
     actions::{AccelsPlus, RelmAction, RelmActionGroup},
@@ -30,7 +30,7 @@ pub fn setup() -> Result<gtk::Application> {
 
     setup_gettext();
 
-    glib::set_application_name(&gettext("Devx"));
+    glib::set_application_name(&gettext("Blueprint"));
 
     gio::resources_register_include!("resources.gresource")?;
 
@@ -42,7 +42,7 @@ pub fn setup() -> Result<gtk::Application> {
 
     relm4_icons::initialize_icons();
 
-    app.set_resource_base_path(Some("/dev/edfloreshz/Devx/"));
+    app.set_resource_base_path(Some("/dev/edfloreshz/Blueprint/"));
 
     setup_actions(&app);
 
@@ -71,7 +71,7 @@ fn setup_gettext() {
 
 fn setup_css() {
     let provider = gtk::CssProvider::new();
-    provider.load_from_resource("/dev/edfloreshz/Devx/style.css");
+    provider.load_from_resource("/dev/edfloreshz/Blueprint/style.css");
     if let Some(display) = gdk::Display::default() {
         gtk::style_context_add_provider_for_display(
             &display,
