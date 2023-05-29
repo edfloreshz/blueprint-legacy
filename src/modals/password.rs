@@ -57,7 +57,7 @@ impl Component for PasswordModel {
                     },
                     gtk::Label {
                     set_css_classes: &["title-4"],
-                    set_label: "Authorization Required",
+                    set_label: "Sudo Mode",
                     },
                     gtk::Label {
                         set_label: "We require authorization to make changes in your system.",

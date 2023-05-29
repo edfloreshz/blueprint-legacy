@@ -76,7 +76,6 @@ impl AsyncComponent for App {
 
     view! {
         main_window = adw::ApplicationWindow::new(&main_application()) {
-            set_default_size: (700, 700),
             connect_close_request[sender] => move |_| {
                 sender.input(AppMsg::Quit);
                 gtk::Inhibit(true)
@@ -99,6 +98,8 @@ impl AsyncComponent for App {
             },
 
             gtk::Box {
+                set_width_request: 700,
+                set_height_request: 700,
                 set_orientation: gtk::Orientation::Vertical,
                 adw::HeaderBar {
                     set_show_start_title_buttons: false,
