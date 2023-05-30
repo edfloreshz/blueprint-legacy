@@ -43,8 +43,8 @@ impl SimpleComponent for ShellsModel {
             set_visible: model.page == Page::Shells,
             #[local_ref]
             add = shell_container -> adw::PreferencesGroup {
-                set_title: model.page.name(),
-                set_description: Some(model.page.description()),
+                set_title: &model.page.name(),
+                set_description: Some(&model.page.description()),
             },
         }
     }

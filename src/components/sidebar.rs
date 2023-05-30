@@ -8,7 +8,7 @@ use relm4::{
 };
 use relm4_icons::icon_name;
 
-use crate::models::page::Page;
+use crate::{fl, models::page::Page};
 
 pub struct SidebarModel {}
 
@@ -54,7 +54,7 @@ impl SimpleComponent for SidebarModel {
                                 set_icon_name: Some(icon_name::CODE_BLOCK_FILLED),
                             },
                             gtk::Label {
-                                set_text: "Shells",
+                                set_text: fl!("shells"),
                                 set_halign: gtk::Align::Start,
                             },
                         },
@@ -69,7 +69,7 @@ impl SimpleComponent for SidebarModel {
                                 set_icon_name: Some(icon_name::CHAT_FILLED),
                             },
                             gtk::Label {
-                                set_text: "Languages",
+                                set_text: fl!("languages"),
                                 set_halign: gtk::Align::Start,
                             },
                         },
@@ -84,7 +84,7 @@ impl SimpleComponent for SidebarModel {
                                 set_icon_name: Some(icon_name::BOOKMARK_MULTIPLE_FILLED),
                             },
                             gtk::Label {
-                                set_text: "Libraries",
+                                set_text: fl!("libraries"),
                                 set_halign: gtk::Align::Start,
                             },
                         },
@@ -99,7 +99,7 @@ impl SimpleComponent for SidebarModel {
                                 set_icon_name: Some(icon_name::SLIDE_TEXT_FILLED),
                             },
                             gtk::Label {
-                                set_text: "Code Editors",
+                                set_text: fl!("code-editors"),
                                 set_halign: gtk::Align::Start,
                             }
                         },
@@ -116,7 +116,7 @@ impl SimpleComponent for SidebarModel {
                 set_margin_start: 10,
                 set_hexpand: false,
                 gtk::Button {
-                    set_tooltip: "Preferences",
+                    set_tooltip: fl!("preferences"),
                     set_css_classes: &["flat"],
                     gtk::Box {
                         set_orientation: gtk::Orientation::Horizontal,
@@ -126,7 +126,7 @@ impl SimpleComponent for SidebarModel {
                         },
                         append = &gtk::Label {
                             set_hexpand: true,
-                            set_text: "Preferences",
+                            set_text: fl!("preferences"),
                         },
                     },
                     connect_clicked => SidebarInput::OpenPreferences

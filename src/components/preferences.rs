@@ -15,7 +15,7 @@ use relm4::{
 };
 use relm4_icons::icon_name;
 
-use crate::models::app_preferences::AppPreferences;
+use crate::{fl, models::app_preferences::AppPreferences};
 
 pub struct PreferencesModel {
     preferences: AppPreferences,
@@ -39,7 +39,7 @@ impl Component for PreferencesModel {
     view! {
         #[root]
         adw::PreferencesWindow {
-            set_title: Some("Preferences"),
+            set_title: Some(fl!("preferences")),
             set_hide_on_close: true,
             #[wrap(Some)]
             #[name = "overlay"]

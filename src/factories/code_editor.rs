@@ -11,7 +11,7 @@ use relm4::{
     AsyncFactorySender,
 };
 
-use crate::{components::pages::code_editors::CodeEditorsInput, setup::preferences_path};
+use crate::{components::pages::code_editors::CodeEditorsInput, fl, setup::preferences_path};
 
 pub struct CodeEditorModel {
     index: usize,
@@ -49,7 +49,7 @@ impl AsyncFactoryComponent for CodeEditorModel {
                 set_icon_name: Some(self.code_editor.icon()),
             },
             add_row = &adw::EntryRow {
-                set_title: "apt package name for this code editor",
+                set_title: fl!("apt-description"),
                 #[watch]
                 set_text: self.code_editor.sources().apt().package_name(),
                 set_show_apply_button: true,
@@ -63,7 +63,7 @@ impl AsyncFactoryComponent for CodeEditorModel {
                 },
             },
             add_row = &adw::EntryRow {
-                set_title: "dnf package name for this code editor",
+                set_title: fl!("dnf-description"),
                 #[watch]
                 set_text: self.code_editor.sources().dnf().package_name(),
                 set_show_apply_button: true,
@@ -77,7 +77,7 @@ impl AsyncFactoryComponent for CodeEditorModel {
                 },
             },
             add_row = &adw::EntryRow {
-                set_title: "Flatpak app identifier for this code editor",
+                set_title: fl!("flatpak-description"),
                 #[watch]
                 set_text: self.code_editor.sources().flatpak().app_id(),
                 set_show_apply_button: true,
