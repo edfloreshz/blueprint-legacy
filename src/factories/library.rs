@@ -11,7 +11,7 @@ use relm4::{
     AsyncFactorySender,
 };
 
-use crate::{components::pages::libraries::LibrariesInput, setup::preferences_path};
+use crate::{components::pages::libraries::LibrariesInput, fl, setup::preferences_path};
 
 pub struct LibraryModel {
     index: usize,
@@ -49,7 +49,7 @@ impl AsyncFactoryComponent for LibraryModel {
                 set_icon_name: Some(self.library.icon()),
             },
             add_row = &adw::EntryRow {
-                set_title: "apt package name for this library",
+                set_title: fl!("apt-description"),
                 #[watch]
                 set_text: self.library.sources().apt().package_name(),
                 set_show_apply_button: true,
@@ -63,7 +63,7 @@ impl AsyncFactoryComponent for LibraryModel {
                 },
             },
             add_row = &adw::EntryRow {
-                set_title: "dnf package name for this library",
+                set_title: fl!("dnf-description"),
                 #[watch]
                 set_text: self.library.sources().dnf().package_name(),
                 set_show_apply_button: true,
@@ -77,7 +77,7 @@ impl AsyncFactoryComponent for LibraryModel {
                 },
             },
             add_row = &adw::EntryRow {
-                set_title: "Flatpak app identifier for this library",
+                set_title: fl!("flatpak-description"),
                 #[watch]
                 set_text: self.library.sources().flatpak().app_id(),
                 set_show_apply_button: true,

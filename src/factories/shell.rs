@@ -11,7 +11,7 @@ use relm4::{
     AsyncFactorySender,
 };
 
-use crate::{components::pages::shells::ShellsInput, setup::preferences_path};
+use crate::{components::pages::shells::ShellsInput, fl, setup::preferences_path};
 
 pub struct ShellModel {
     index: usize,
@@ -50,7 +50,7 @@ impl AsyncFactoryComponent for ShellModel {
                 set_icon_name: Some(self.shell.icon()),
             },
             add_row = &adw::EntryRow {
-                set_title: "apt package name for this shell",
+                set_title: fl!("apt-description"),
                 #[watch]
                 set_text: self.shell.sources().apt().package_name(),
                 set_show_apply_button: true,
@@ -64,7 +64,7 @@ impl AsyncFactoryComponent for ShellModel {
                 },
             },
             add_row = &adw::EntryRow {
-                set_title: "dnf package name for this shell",
+                set_title: fl!("dnf-description"),
                 #[watch]
                 set_text: self.shell.sources().dnf().package_name(),
                 set_show_apply_button: true,
@@ -78,7 +78,7 @@ impl AsyncFactoryComponent for ShellModel {
                 },
             },
             add_row = &adw::EntryRow {
-                set_title: "Flatpak app identifier for this shell",
+                set_title: fl!("flatpak-description"),
                 #[watch]
                 set_text: self.shell.sources().flatpak().app_id(),
                 set_show_apply_button: true,
@@ -92,7 +92,7 @@ impl AsyncFactoryComponent for ShellModel {
                 },
             },
             add_row = &adw::EntryRow {
-                set_title: "URL of your configuration file here",
+                set_title: fl!("url-description"),
                 #[watch]
                 set_text: self.shell.config(),
                 set_show_apply_button: true,

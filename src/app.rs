@@ -17,6 +17,7 @@ use relm4_icons::icon_name;
 use crate::{
     components::{content::ContentInput, preferences::PreferencesModel, sidebar::SidebarModel},
     config::PROFILE,
+    fl,
     modals::{
         password::{PasswordModel, PasswordOutput},
         summary::{SummaryInput, SummaryModel},
@@ -105,6 +106,7 @@ impl AsyncComponent for App {
                     set_show_start_title_buttons: false,
                     pack_start = &gtk::Button {
                         set_css_classes: &["flat"],
+                        set_tooltip: fl!("hide-sidebar"),
                         set_icon_name: icon_name::PANEL_RIGHT_CONTRACT_FILLED,
                         connect_clicked => AppMsg::RevealSidebar,
                     },
@@ -115,7 +117,7 @@ impl AsyncComponent for App {
                     },
                     pack_end = &gtk::Button {
                         set_css_classes: &["flat"],
-                        set_tooltip: "Apply changes to the system",
+                        set_tooltip: fl!("apply-tooltip"),
                         set_icon_name: icon_name::CHECKBOX_CHECKED_FILLED,
                         connect_clicked => AppMsg::PromptPassword,
                     },

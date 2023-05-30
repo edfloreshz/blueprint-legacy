@@ -44,9 +44,9 @@ impl SimpleComponent for LibrariesModel {
             #[local_ref]
             add = librarie_container -> adw::PreferencesGroup {
                 #[watch]
-                set_title: model.page.name(),
+                set_title: &model.page.name(),
                 #[watch]
-                set_description: Some(model.page.description()),
+                set_description: Some(&model.page.description()),
             },
         }
     }

@@ -13,6 +13,7 @@ use gettextrs::{gettext, LocaleCategory};
 use gtk::{gdk, gio, glib};
 
 use crate::{
+    application::localization,
     config::{APP_ID, GETTEXT_PACKAGE, LOCALEDIR},
     AppActionGroup, QuitAction,
 };
@@ -24,6 +25,8 @@ pub fn setup() -> Result<gtk::Application> {
         .with_span_events(tracing_subscriber::fmt::format::FmtSpan::FULL)
         .with_max_level(tracing::Level::INFO)
         .init();
+
+    localization::init();
 
     // Initialize GTK
     gtk::init().unwrap();

@@ -4,6 +4,7 @@ extern crate derive_new;
 #[rustfmt::skip]
 mod config;
 mod app;
+mod application;
 mod components;
 mod factories;
 mod modals;
