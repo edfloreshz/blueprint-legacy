@@ -37,10 +37,9 @@ features = [
     "dark-mode",
     "checkbox-checked-filled",
     "checkmark-circle-filled",
-    "warning"
+    "warning",
 ]
 
 [dev-dependencies]
 anyhow = "1.0.71"
 dirs = "5.0.1"
-

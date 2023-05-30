@@ -1,5 +1,7 @@
 use relm4_icons::icon_name;
 
+use crate::fl;
+
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Clone, Copy)]
 pub enum Page {
     Shells,
@@ -10,23 +12,23 @@ pub enum Page {
 }
 
 impl Page {
-    pub fn name<'a>(&self) -> &'a str {
+    pub fn name(&self) -> String {
         match self {
-            Page::Shells => "Shells",
-            Page::Languages => "Languages",
-            Page::Libraries => "Libraries",
-            Page::CodeEditors => "Code editors",
-            Page::Preferences => "Preferences",
+            Page::Shells => fl!("shells").clone(),
+            Page::Languages => fl!("languages").clone(),
+            Page::Libraries => fl!("libraries").clone(),
+            Page::CodeEditors => fl!("code-editors").clone(),
+            Page::Preferences => fl!("preferences").clone(),
         }
     }
 
-    pub fn description<'a>(&self) -> &'a str {
+    pub fn description(&self) -> String {
         match self {
-            Page::Shells => "Select your favorite shells",
-            Page::Languages => "Select your favorite programming languages",
-            Page::Libraries => "Select all the libraries you need",
-            Page::CodeEditors => "Select your favorite code editors",
-            Page::Preferences => "Tweak the app and set your preferences",
+            Page::Shells => fl!("shells-description").clone(),
+            Page::Languages => fl!("languages-description").clone(),
+            Page::Libraries => fl!("libraries-description").clone(),
+            Page::CodeEditors => fl!("code-editors-description").clone(),
+            Page::Preferences => fl!("preferences-description").clone(),
         }
     }
 
