@@ -74,3 +74,8 @@ if glib_compile_schemas.found()
     ],
   )
 endif
+
+# Manpage
+install_man(
+  'blueprint.1',
+)
